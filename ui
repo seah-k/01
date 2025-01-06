@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IKA-CRM-System</title>
+    @vite(['resources/sass/app.scss','resources/js/app.js'])
+</head>
+<body>
+<div class="b-example-divider"></div>
+
+<header class="p-3 mb-3 border-bottom">
+  <div class="container">
+    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+      <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
+        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
+      </a>
+
+      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="/dashboard" class="nav-link px-2 link-secondary">Message</a></li>
+        <li><a href="#" class="nav-link px-2 link-body-emphasis">Meeting</a></li>
+        <li><a href="#" class="nav-link px-2 link-body-emphasis">Payment record</a></li>
+      </ul>
+
+      <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+        <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+      </form>
+
+      <div class="dropdown text-end">
+        <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+        </a>
+        <ul class="dropdown-menu text-small">
+            <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="dropdown-item">Sign out</button>
+                </form>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>
+</body>
+<boby>
+
+<!-- ========== HEADER ========== -->
+<head>
+  @vite('resources/css/app.css')
+</head>
+<body>
+  <!-- ========== HEADER ========== -->
+  <header class="inset-x-0 flex flex-wrap md:justify-start w-full bg-white shadow-sm text-sm py-2.5 lg:ps-[260px]">
+  <nav class="px-4 sm:px-6 flex basis-full items-center w-full mx-auto">
+          <div class="w-full flex items-center justify-end ms-auto md:justify-between gap-x-1 md:gap-x-3">
+              <!-- Avatar -->
+              <div class="inline-flex items-center gap-x-2 text-sm font-semibold text-gray-800">
+                  <img 
+                      class="shrink-0 w-10 h-10 rounded-full border border-gray-300" 
+                      src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80" 
+                      alt="Avatar">
+                  user name
+              </div>
+          </div>
+      </nav>
+  </header>
+  <!-- ========== END HEADER ========== -->
+
+  <!-- ========== SIDEBAR ========== -->
+  <div class="fixed inset-y-0 left-0 z-[70] w-[260px] bg-white border-r border-gray-200 shadow-sm top-[72.4px]">
+      <div class="relative flex flex-col h-full">
+          <!-- Logo -->
+          <div class="px-6 py-4 border-b border-gray-200">
+              <a class="text-lg font-semibold text-gray-800">
+                  Users
+              </a>
+          </div>
+          <!-- End Logo -->
+
+          <!-- Sidebar Content -->
+          <div class="h-full overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300">
+              <ul class="flex flex-col space-y-1 px-4 py-2" id="user-list">
+                  @foreach($all_users as $user)
+                  <li id="user-list" data-id="{{$user->id}}">
+                      <a class="flex items-center gap-x-3.5 py-2 px-2.5 bg-gray-100 text-sm text-gray-800 rounded-lg hover:bg-gray-200 focus:outline-none focus:ring focus:ring-gray-300" href="#">
+                          <img src="https://ui-avatars.com/api/?name={{$user->name}}&rounded=true&background=random" alt="Avatar" class="rounded-full w-8 h-8">
+                          {{$user->name}}
+                      </a>
+                  </li>
+                  @endforeach
+              </ul>
+          </div>
+          <!-- End Sidebar Content -->
+      </div>
+  </div>
+  <!-- ========== END SIDEBAR ========== -->
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <main class="ps-[260px]">
+      <div class="pt-10 px-4 sm:px-7 md:px-8 max-w-full mt-">
+          <div class="flex flex-col bg-white border border-gray-200 shadow-sm rounded-xl p-4 md:p-5 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
+    <!-----here messages will be pubilished----->
+    <!-- Chat Bubble -->
+    <ul class="space-y-5">
+  <!-- Chat -->
+  <li class="max-w-lg flex gap-x-2 sm:gap-x-4 me-11">
+    <img class="inline-block size-9 rounded-full" src="https://images.unsplash.com/photo-1541101767792-f9b2b1c4f127?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&&auto=format&fit=facearea&facepad=3&w=300&h=300&q=80" alt="Avatar">
+
+    <!-- Card -->
+    <div class="bg-white border border-gray-200 rounded-2xl p-4 space-y-3 dark:bg-neutral-900 dark:border-neutral-700">
+      <h2 class="font-medium text-gray-800 dark:text-white">
+        How can we help?
+      </h2>
+      <div class="space-y-1.5">
+        <p class="mb-1.5 text-sm text-gray-800 dark:text-white">
+          You can ask questions like:
+        </p>
+        <ul class="list-disc list-outside space-y-1.5 ps-3.5">
+          <li class="text-sm text-gray-800 dark:text-white">
+            What's Preline UI?
+          </li>
+
+          <li class="text-sm text-gray-800 dark:text-white">
+            How many Starter Pages & Examples are there?
+          </li>
+
+          <li class="text-sm text-gray-800 dark:text-white">
+            Is there a PRO version?
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- End Card -->
+  </li>
+  <!-- End Chat -->
+
+  <!-- Chat -->
+  <li class="flex ms-auto gap-x-2 sm:gap-x-4">
+    <div class="grow text-end space-y-3">
+      <!-- Card -->
+      <div class="inline-block bg-blue-600 rounded-2xl p-4 shadow-sm">
+        <p class="text-sm text-white">
+          what's preline ui?
+        </p>
+      </div>
+      <!-- End Card -->
+    </div>
+
+    <span class="shrink-0 inline-flex items-center justify-center size-[38px] rounded-full bg-gray-600">
+      <span class="text-sm font-medium text-white leading-none">AZ</span>
+    </span>
+  </li>
+  <!-- End Chat -->
+
+  <!-- Chat Bubble -->
+  <li class="max-w-lg flex gap-x-2 sm:gap-x-4 me-11">
+    <img class="inline-block size-9 rounded-full" src="https://images.unsplash.com/photo-1541101767792-f9b2b1c4f127?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&&auto=format&fit=facearea&facepad=3&w=300&h=300&q=80" alt="Avatar">
+
+    <!-- Card -->
+    <div class="bg-white border border-gray-200 rounded-2xl p-4 space-y-3 dark:bg-neutral-900 dark:border-neutral-700">
+      <p class="text-sm text-gray-800 dark:text-white">
+        Preline UI is an open-source set of prebuilt UI components based on the utility-first Tailwind CSS framework.
+      </p>
+      <div class="space-y-1.5">
+        <p class="text-sm text-gray-800 dark:text-white">
+          Here're some links to get started
+        </p>
+        <ul>
+          <li>
+            <a class="text-sm text-blue-600 decoration-2 hover:underline focus:outline-none focus:underline font-medium dark:text-blue-500 dark:hover:text-blue-400" href="../docs/index.html">
+              Installation Guide
+            </a>
+          </li>
+          <li>
+            <a class="text-sm text-blue-600 decoration-2 hover:underline focus:outline-none focus:underline font-medium dark:text-blue-500 dark:hover:text-blue-400" href="../docs/frameworks.html">
+              Framework Guides
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- End Card -->
+  </li>
+  <!-- End Chat Bubble -->
+</ul>
+<!-- End Chat Bubble -->
+
+    <!--here the input and button-->
+    <div class="relative mt-">
+            <div class="flex">
+                <input type="text"  id="msg-input" class="peer py-3 px-4 pr-12 block w-full bg-gray-200 border-transparent rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-700 dark:border-transparent dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" placeholder="Enter your message">
+                <button type="button" onclick="sendMessage(currentChannel)" class="peer absolute inset-y-0 right-0 flex items-center justify-center bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 text-white font-semibold py-2 px-3 rounded-r-lg shadow-md">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
+                        <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        </div>
+      </div>
+  </main>
+  <!-- ========== END MAIN CONTENT ========== -->
+</body>
+
+    <!-- 页面内容 -->
+@php
+    $loggedIn_userId = auth()->user()->id;
+@endphp
+<script lang="text/javascript" src="https://cdn.ably.com/lib/ably.min-2.js">
+        
+    var ably = new Ably.Realtime.Promise({
+      key: 'here pass your API key that we created on the ably Account'
+   });
+
+   ably.connection.on((stateChange) => {
+      console.log(stateChange.current);
+  });
+
+    //get the logged in user id
+  var login_userId = '<?php echo $loggedIn_userId; ?>';
+
+  //console.log(login_userId);
+
+  var UserList = $('#user-list');
+
+  UserList.on('click','li',function(){
+    RecipientId = $(this).attr('data-id');
+    consele.log(RecipientId);
+
+    // let's show the selected user by adding a background color
+    UserList.find('li').removeClass('selected-user');
+
+    $(this).addClass('selected-user');
+    
+  });
+
+  
+
+</script>
+</html>
+
